@@ -15,11 +15,16 @@ export const DELETE_TASK = "DELETE_TASK";
 export const DELETE_TASK_SUCCESS = "DELETE_TASK_SUCCESS";
 export const DELETE_TASK_FAILURE = "DELETE_TASK_FAILURE";
 
+//Update is Complete
+export const COMPLETE_TASK = "COMPLETE_TASK";
+export const COMPLETE_TASK_SUCCESS = "COMPLETE_TASK_SUCCESS";
+export const COMPLETE_TASK_FAILURE = "COMPLETE_TASK_FAILURE";
+
 // New Task
 export const postNewTask = todo => dispatch => {
   dispatch({ type: ADD_TASK });
   axiosWithAuth()
-    .post("/")
+    .post("/api/tasks")
     .then(res => {
       console.log(res);
       dispatch(postNewTaskSuccess(res));
@@ -37,7 +42,7 @@ export const postNewTaskSuccess = todo => {
 export const getTasksData = () => dispatch => {
   dispatch({ type: FETCH_TASKS });
   axiosWithAuth()
-    .get("/")
+    .get("/api/tasks")
     .then(res => {
       console.log(res);
       dispatch(getTasksDataSuccess(res));
@@ -53,9 +58,9 @@ export const getTasksDataSuccess = todos => {
 
 //Delete task
 export const deleteTask = todo => dispatch => {
-  dispatch({ type: DELETE_TASK });
+  dispatch({ type: DELETE_TASK, todo });
   axiosWithAuth()
-    .delete("/")
+    .delete("/api/tasks/", todo)
     .then(res => {
       //find way to see if deleted
       console.log(res);
@@ -66,5 +71,23 @@ export const deleteTaskSuccess = todo => {
   return {
     type: DELETE_TASK_SUCCESS,
     payload: todo
+  };
+};
+
+export const completeTask = todo => dispatch => {
+  dispatch({ type: COMPLETE_TASK, todo });
+  axiosWithAuth()
+    .put(`/api/tasks/${todo.id}`, todo)
+    .then(res => {
+      console.log(res);
+      dispatch(completeTaskSuccess(res));
+    });
+};
+
+export const completeTaskSuccess = todo => {
+  return {
+    type: COMPLETE_TASK_SUCCESS,
+    payload: todo,
+    id: todo.id
   };
 };

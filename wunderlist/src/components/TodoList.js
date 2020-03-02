@@ -1,20 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TransitionMotion, spring, presets } from "react-motion";
 import { useForm } from "react-hook-form";
+import { bindActionCreators } from "redux";
+import Todo from "./Todo";
+// import {
+//   postNewTask,
+//   postNewTaskSuccess,
+//   getTasksData,
+//   getTasksDataSuccess,
+//   deleteTask,
+//   deleteTaskSuccess,
+//   completeTask,
+//   completeTaskSuccess
+// } from "../actions";
+import { connect } from "react-redux";
+import * as Index from "../actions/index";
 
 const TodoList = props => {
+  useEffect(() => {
+    console.log("useeffect");
+    props.actions.getTasksData();
+  }, []);
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => console.log(data);
+  const onSubmit = e => {
+    e.preventDefault();
+  };
 
   //Do we use actions? guess so cause state
   var itemsNotFinished;
 
   // handleChange = ({ target: { value } }) => {};
-
-  // //Adds new item
+  // console.log("the date", Date.now());
+  // // //Adds new item
   // handleSubmit = e => {
   //   e.preventDefault();
-  //   const newItem = {};
+  //   const newTask = {
+  //     title: "",
+  //     start: ""
+  //   };
+  //   console.log("test");
+  //   // props.task.postNewTask(newTask);
   //   // add to top of the list
   // };
 
@@ -27,9 +52,7 @@ const TodoList = props => {
   // };
 
   // //Deletes all completed items
-  // handleClearCompleted = () => {
-
-  // };
+  // handleClearCompleted = () => {};
 
   return (
     <div className="wholetodo">
@@ -48,6 +71,7 @@ const TodoList = props => {
             ref={register}
           />
           <select name="Is it recurring" ref={register}>
+            <option value="once">Only Once</option>
             <option value="Hourly">Hourly</option>
             <option value=" Daily"> Daily</option>
             <option value=" Monthly"> Monthly</option>
@@ -57,7 +81,9 @@ const TodoList = props => {
           <input type="submit" />
         </form>
       </header>
-      <section className="main"></section>
+      <section className="main">
+        <Todo />
+      </section>
       <footer className="footer">
         <span className="todo-count">
           <strong>{itemsNotFinished}</strong>{" "}
@@ -73,4 +99,16 @@ const TodoList = props => {
   );
 };
 
-export default TodoList;
+// export default TodoList;
+const mapStateToProps = state => {
+  return {
+    tasks: state
+  };
+};
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(Index, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
