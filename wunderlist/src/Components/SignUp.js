@@ -15,30 +15,32 @@ export default function App() {
 
       
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="text" placeholder="Last name" name="Last name" ref={register({required: true, maxLength: 100})} />
-      <input type="text" placeholder="Email" name="Email" ref={register({required: true, pattern: /^\S+@\S+$/i})} />
-      <input type="text" placeholder="Password" name="Password" ref={register} />
       <h2>Create Account</h2> 
-            <form>
-              <h3>Full Name</h3>
-              <input type="text" placeholder="First name" name="First name" ref={register({required: true, maxLength: 80})} />
+      <form>
 
-            </form>
-            <form>
-                <h3>Username:</h3>
-                {/* <input type='username' placeholder='Username' onChange={handleChange} name="username" value={formValues.username} /> */}
-            </form>
-            <form>
-                <h3>Password:</h3>
-                {/* <input type='password' placeholder = 'Password' onChange={handleChange} name="password" value={formValues.password} /> */}
-            </form>
-            <button className='continue' onClick={onSubmit}>Submit</button>
-            <h3>Already Have An Account?</h3>
-            <MyLink to="/Login">
-                <button className="log">Log In</button>
-            </MyLink>
+        <h3>First Name</h3>
+        <input type="text" placeholder="First name" name="First name" ref={register({required: true, maxLength: 80})} />
 
-      <input type="submit" />
+      </form>
+      <form>
+        <h3>Last Name:</h3>
+        <input type="text" placeholder="Last name" name="Last name" ref={register({required: true, maxLength: 100})} />
+      </form>
+      <form>
+        <h3>Email:</h3>
+        <input type="text" placeholder="Email" name="Email" ref={register({required: true, pattern: /^\S+@\S+$/i})} />
+      </form>
+      <form>
+        <h3>Password:</h3>
+        <input type="text" placeholder="Password" name="Password" ref={register} />
+      </form>
+      <button className='continue' onClick={onSubmit}>Submit</button>
+      <h3>Already Have An Account?</h3>
+      <MyLink to="/Login">
+        <button className="log">Log In</button>
+      </MyLink>
+
+     
     </form>
     </div>
     </SignUpContainer>
@@ -106,13 +108,13 @@ const SignUpContainer = styled.div`
         width: 100%;
         background: white;
         border-radius: 4px;
-        border: #db7c1e solid 1px;
+        border:  #197dac solid 1px;
         padding: 1%;
         font-family: 'Raleway', sans-serif;
         margin-bottom: 2%;
 
         &:hover{
-            background: #db7c1e;
+            background:#488ac0;
             color: white;
             cursor: pointer;
         }
