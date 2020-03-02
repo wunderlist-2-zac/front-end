@@ -4,8 +4,7 @@ const TodoRow = props => {
   return (
     <div className="singleTask">
       <div className="spacing">
-        {/* <p>{props.task.title}</p> */}
-        <p>Task name</p>
+        <p>Task: {props.task.title}</p>
       </div>
       <div className="spacing">
         <Timer initialTime={55000} direction="backward">
@@ -20,7 +19,11 @@ const TodoRow = props => {
         </Timer>
       </div>
       <div className="spacing">
-        <p> is it recurring?</p>
+        {props.task.is_recurring != null ? (
+          <p> Recurring: {props.task.is_recurring}</p>
+        ) : (
+          <p>Task Isn't Recurring</p>
+        )}
       </div>
     </div>
   );

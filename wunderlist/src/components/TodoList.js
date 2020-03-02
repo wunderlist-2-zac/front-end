@@ -82,7 +82,10 @@ const TodoList = props => {
         </form>
       </header>
       <section className="main">
-        <Todo />
+        {props.tasks.data &&
+          props.tasks.data.map(task => {
+            return <Todo task={task} key={task.id} />;
+          })}
       </section>
       <footer className="footer">
         <span className="todo-count">
