@@ -24,7 +24,7 @@ export const COMPLETE_TASK_FAILURE = "COMPLETE_TASK_FAILURE";
 export const postNewTask = todo => dispatch => {
   dispatch({ type: ADD_TASK });
   axiosWithAuth()
-    .post("/api/tasks")
+    .post("/api/tasks", todo)
     .then(res => {
       console.log(res);
       dispatch(postNewTaskSuccess(res));

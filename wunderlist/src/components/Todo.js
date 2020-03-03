@@ -1,5 +1,7 @@
 import React from "react";
 import Timer from "react-compound-timer";
+
+//1 second in timer is 4000 seconds
 const TodoRow = props => {
   return (
     <div className="singleTask">
@@ -7,7 +9,7 @@ const TodoRow = props => {
         <p>Task: {props.task.title}</p>
       </div>
       <div className="spacing">
-        <Timer initialTime={55000} direction="backward">
+        <Timer initialTime={4000} direction="backward">
           {() => (
             <React.Fragment>
               <Timer.Days /> days

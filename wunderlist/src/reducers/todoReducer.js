@@ -41,7 +41,7 @@ const task = (state, action) => {
 export const todoReducer = (state = [], action) => {
   switch (action.type) {
     case ADD_TASK_SUCCESS: {
-      return [...state, action.payload];
+      return [...state, action.todo];
     }
     case FETCH_TASKS_SUCCESS: {
       return action.payload;

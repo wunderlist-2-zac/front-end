@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { TransitionMotion, spring, presets } from "react-motion";
 import { useForm } from "react-hook-form";
 import { bindActionCreators } from "redux";
@@ -17,13 +17,41 @@ import { connect } from "react-redux";
 import * as Index from "../actions/index";
 
 const TodoList = props => {
+  const { register, handleSubmit, errors } = useForm();
+
   useEffect(() => {
     console.log("useeffect");
     props.actions.getTasksData();
   }, []);
-  const { register, handleSubmit, errors } = useForm();
+
   const onSubmit = e => {
-    e.preventDefault();
+    var date = new Date();
+    var dateStr =
+      date.getFullYear() +
+      "-" +
+      ("00" + (date.getMonth() + 1)).slice(-2) +
+      "-" +
+      ("00" + date.getDate()).slice(-2) +
+      " " +
+      ("00" + date.getHours()).slice(-2) +
+      ":" +
+      ("00" + date.getMinutes()).slice(-2) +
+      ":" +
+      ("00" + date.getSeconds()).slice(-2);
+    var endDate = e.enddate + ":00";
+    var newEndDate = endDate.replace("T", " ");
+    console.log("title", e.title);
+    console.log("start Date", dateStr);
+    console.log("end Date", newEndDate);
+    console.log("recurring", e.recurring);
+    const addATask = {
+      title: e.title,
+      start: dateStr,
+      end: newEndDate,
+      is_recurring: e.recurring
+    };
+
+    props.actions.postNewTask(addATask);
   };
 
   //Do we use actions? guess so cause state
@@ -61,21 +89,21 @@ const TodoList = props => {
           <input
             type="text"
             placeholder="Title"
-            name="Title"
+            name="title"
             ref={register({ min: 1, maxLength: 20 })}
           />
           <input
             type="datetime-local"
-            placeholder="End-date"
-            name="End-date"
+            placeholder="end date"
+            name="enddate"
             ref={register}
           />
-          <select name="Is it recurring" ref={register}>
-            <option value="once">Only Once</option>
-            <option value="Hourly">Hourly</option>
-            <option value=" Daily"> Daily</option>
-            <option value=" Monthly"> Monthly</option>
-            <option value=" Yearly"> Yearly</option>
+          <select name="recurring" ref={register}>
+            <option value="">Only Once</option>
+            <option value="h">Hourly</option>
+            <option value="d"> Daily</option>
+            <option value="m"> Monthly</option>
+            <option value="y"> Yearly</option>
           </select>
 
           <input type="submit" />
