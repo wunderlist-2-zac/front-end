@@ -10,10 +10,10 @@ const LandingPage = () => {
       
         <LandingPageContainer>
             <MyLink to="/Login">
-                <button className="log">Log In</button>
+                <button className="log"><h3>Log In</h3></button>
             </MyLink>
             <MyLink to="/SignUp">
-                <button>Create Account</button>
+                <button><h3>Create Account</h3></button>
             </MyLink>
         </LandingPageContainer>       
         </>
@@ -23,26 +23,28 @@ const LandingPage = () => {
 export default LandingPage;
 
 const LandingPageContainer = styled.div`
-    height: 60%;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    
+    
 
         button{
             display: flex;
             justify-content: center;
             border: none;
             width: 60vw;
-            background: white;
+            background:  #2C7873;
             border-radius: 4px;
-            border: #314d86 solid 1px;
+            border: #52DE97 solid 1px;
             padding: 1%;
             font-family: 'Raleway', sans-serif;
             margin-bottom: 2%;
 
             &:hover{
-                background: #488ac0;
+                background: #FFBA5A;
                 color: white;
                 cursor: pointer;
             }
@@ -51,5 +53,6 @@ const LandingPageContainer = styled.div`
 `
 const MyLink = styled(Link)`
         text-decoration: none;
+        margin:5%;
   
 `

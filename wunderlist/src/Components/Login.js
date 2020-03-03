@@ -1,31 +1,47 @@
 import React from 'react';
+import axios from "axios"
 import {Link} from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
-export default function App() {
+export default function Login() {
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => console.log(data);
-  console.log(errors);
+  const onSubmit = data => {
+    console.log(data.password);
+    console.log(data)
+    axios({ method: '', url: 'https://wunderlistclone.herokuapp.com/api/auth/login',
+    header: {"Content-Type": "application/json"}, data: {
+    "username":data.username,
+    "password":data.password
+  }})
+    .then(res =>{
+      console.log(res);
+    })
+    .catch(errors => {
+      console.error('Server Error', errors);
+        
+    })
+  }
+  
   
   return (
     <>
     <LoginContainer>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h2>Login</h2>
-        <form>
-          <h3>Email</h3>
-          <input type="text" placeholder="Email" name="Email" ref={register({required: true, pattern: /^\S+@\S+$/i})} />
-        </form>
-        <form>
-          <h3>Password</h3> 
-          <input type="text" placeholder="Password" name="Password" ref={register} />
-        </form>
+        
+        <h3>Email</h3>
+        <input type="text" placeholder="Email" name="username" ref={register({required: true, pattern: /^\S+@\S+$/i})} />
+       
+        
+        <h3>Password</h3> 
+        <input type="text" placeholder="Password" name="password" ref={register} />
+       
         <button onClick={onSubmit}>Submit</button>
         <h3>Don't Have An Account Yet?</h3>
-          <MyLink to="/SignUp">
-            <button>Create Account</button>
-          </MyLink>
+        <MyLink to="/SignUp">
+          <button>Create Account</button>
+        </MyLink>
       </form>
     </LoginContainer>
     </>
@@ -45,6 +61,7 @@ const LoginContainer = styled.div`
     h2{
         font-size: 4rem;
         width: 100%;
+        color:#52DE97;
         font-family: 'Raleway', sans-serif;
         padding-bottom: 2%;
     }
@@ -52,6 +69,7 @@ const LoginContainer = styled.div`
     h3{
         font-family: 'Raleway', sans-serif;
         font-size: 2.3rem;
+        color:#2C7873;
         display: flex;
         justify-content: center;
         padding-top: 1%;
@@ -64,10 +82,11 @@ const LoginContainer = styled.div`
     
     form{
         display: flex;
+      
         flex-direction: column;
         justify-content: flex-start;
         margin: 0 auto;
-        width: 100%;
+        width: 80vh;
         padding-bottom: 2%;
 
         h3{ 
@@ -84,7 +103,7 @@ const LoginContainer = styled.div`
             width: 100%;
             padding: 1% 1%;
             margin: 0 auto;
-            border: 1px solid black;
+            border:1px solid #C0FFB3;
             border-radius: 4px;
             box-shadow: none;
         }
@@ -103,8 +122,8 @@ const LoginContainer = styled.div`
         margin-bottom: 2%;
 
         &:hover{
-            background: #488ac0;
-            color: white;
+            background:#2C7873;
+            color: #FFBA5A;
             cursor: pointer;
         }
     }
