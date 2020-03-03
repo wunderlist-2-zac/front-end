@@ -20,7 +20,6 @@ const TodoList = props => {
   const { register, handleSubmit, errors } = useForm();
 
   useEffect(() => {
-    console.log("useeffect");
     props.actions.getTasksData();
   }, []);
 
@@ -110,8 +109,8 @@ const TodoList = props => {
         </form>
       </header>
       <section className="main">
-        {props.tasks.data &&
-          props.tasks.data.map(task => {
+        {props.tasks &&
+          props.tasks.map(task => {
             return <Todo task={task} key={task.id} />;
           })}
       </section>

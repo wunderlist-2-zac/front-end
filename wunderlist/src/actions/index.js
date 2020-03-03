@@ -26,8 +26,8 @@ export const postNewTask = todo => dispatch => {
   axiosWithAuth()
     .post("/api/tasks", todo)
     .then(res => {
-      console.log(res);
-      dispatch(postNewTaskSuccess(res));
+      console.log("post", res);
+      dispatch(postNewTaskSuccess(res.data));
     });
 };
 
@@ -45,7 +45,7 @@ export const getTasksData = () => dispatch => {
     .get("/api/tasks")
     .then(res => {
       console.log(res);
-      dispatch(getTasksDataSuccess(res));
+      dispatch(getTasksDataSuccess(res.data));
     });
 };
 
@@ -58,9 +58,9 @@ export const getTasksDataSuccess = todos => {
 
 //Delete task
 export const deleteTask = todo => dispatch => {
-  dispatch({ type: DELETE_TASK, todo });
+  dispatch({ type: DELETE_TASK });
   axiosWithAuth()
-    .delete("/api/tasks/", todo)
+    .delete(`/api/tasks/${todo.id}`)
     .then(res => {
       //find way to see if deleted
       console.log(res);
@@ -77,7 +77,7 @@ export const deleteTaskSuccess = todo => {
 export const completeTask = todo => dispatch => {
   dispatch({ type: COMPLETE_TASK, todo });
   axiosWithAuth()
-    .put(`/api/tasks/${todo.id}`, todo)
+    .put(`/api/tasks/${todo.id}`, { completed: true })
     .then(res => {
       console.log(res);
       dispatch(completeTaskSuccess(res));
