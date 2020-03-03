@@ -1,4 +1,5 @@
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { bindActionCreators } from "redux";
 
 //Create a task
 export const ADD_TASK = "ADD_TODO";
@@ -19,6 +20,9 @@ export const DELETE_TASK_FAILURE = "DELETE_TASK_FAILURE";
 export const COMPLETE_TASK = "COMPLETE_TASK";
 export const COMPLETE_TASK_SUCCESS = "COMPLETE_TASK_SUCCESS";
 export const COMPLETE_TASK_FAILURE = "COMPLETE_TASK_FAILURE";
+
+//Sorting the tasks
+export const SORT_TASKS = "SORT_TASKS";
 
 // New Task
 export const postNewTask = todo => dispatch => {
@@ -75,19 +79,27 @@ export const deleteTaskSuccess = todo => {
 };
 
 export const completeTask = todo => dispatch => {
+  var isCompleted = !todo.completed;
   dispatch({ type: COMPLETE_TASK, todo });
   axiosWithAuth()
-    .put(`/api/tasks/${todo.id}`, { completed: true })
+    .put(`/api/tasks/${todo.id}`, { completed: isCompleted })
     .then(res => {
       console.log(res);
       dispatch(completeTaskSuccess(res));
+      dispatch(getTasksData());
     });
 };
 
 export const completeTaskSuccess = todo => {
   return {
     type: COMPLETE_TASK_SUCCESS,
-    payload: todo,
-    id: todo.id
+    payload: todo
+  };
+};
+
+export const sortTodoList = todos => {
+  return {
+    type: SORT_TASKS,
+    payload: todos
   };
 };

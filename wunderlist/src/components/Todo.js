@@ -41,8 +41,15 @@ const TodoRow = props => {
   const deleteTask = () => {
     props.actions.deleteTask(props.task);
   };
+
+  const markTaskComplete = () => {
+    props.actions.completeTask(props.task);
+  };
   return (
-    <div className="singleTask">
+    <div
+      onClick={markTaskComplete}
+      className={props.task.completed ? "singleTaskCompleted" : "singleTask"}
+    >
       <div className="spacing">
         <p>Task: {props.task.title}</p>
       </div>
@@ -82,7 +89,8 @@ const TodoRow = props => {
 };
 const mapStateToProps = state => {
   return {
-    tasks: state
+    tasks: state.todos,
+    isLoading: state.isLoading
   };
 };
 function mapDispatchToProps(dispatch) {

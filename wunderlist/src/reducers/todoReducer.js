@@ -9,58 +9,54 @@ import {
   DELETE_TASK_SUCCESS,
   DELETE_TASK_FAILURE,
   COMPLETE_TASK,
-  COMPLETE_TASK_SUCCESS
+  COMPLETE_TASK_SUCCESS,
+  SORT_TASKS
 } from "../actions";
 
-//for modifying a single task data, only one task object
-const task = (state, action) => {
-  //state matches with todo id
-  // if (state.id !== (action.id || action.todo.id)) {
-  //   return state;
-  // }
-  switch (action.type) {
-    case COMPLETE_TASK: {
-      return {
-        ...state
-      };
-    }
-    case COMPLETE_TASK_SUCCESS: {
-      let ourID = state.find(todo => todo.id === Number(action.data));
-      let place = state.indexOf(ourID);
-      let newState = [...state];
-      newState[place].completed = !newState[place].completed;
-      return newState;
-    }
-
-    default:
-      return state;
-  }
+var initialState = {
+  todos: [],
+  isLoading: false
 };
 
 //main reducer actions
-export const todoReducer = (state = [], action) => {
+export const todoReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TASK_SUCCESS: {
       console.log("here", action.payload[0]);
       console.log(state);
-      return [...state, action.payload[0]];
-    }
-    case FETCH_TASKS_SUCCESS: {
-      return action.payload;
+      return { todos: [...state.todos, action.payload[0]], isLoading: false };
     }
 
-    case DELETE_TASK: {
-      return state.map(e => task(e, action));
+    case FETCH_TASKS_SUCCESS: {
+      return { todos: action.payload, isLoading: false };
     }
+
     case DELETE_TASK_SUCCESS: {
-      return state.filter(e => task(e, action));
+      return {
+        todos: state.todos.filter(task => {
+          return task.id !== action.payload.id;
+        }),
+        isLoading: false
+      };
     }
     //Editing individual task
-    case COMPLETE_TASK: {
-      return state.map(e => task(e, action));
-    }
+
     case COMPLETE_TASK_SUCCESS: {
-      return state.map(e => task(e, action));
+      return {
+        todos: state.todos.map(task => {
+          if (task.id === action.payload.id) {
+            return action.payload;
+          } else {
+            return task;
+          }
+        }),
+        isLoading: false
+      };
+    }
+    case SORT_TASKS: {
+      return {
+        ...state
+      };
     }
 
     default:

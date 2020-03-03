@@ -19,6 +19,16 @@
   border-radius: 15px;
   background-color: #c0ffb3;
 }
+.singleTaskCompleted {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px solid #ff0000;
+  margin-bottom: 1%;
+  border-radius: 15px;
+  background-color: #dcdcdc;
+  text-decoration: line-through;
+}
 
 .spacing {
   padding: 1% 3%;

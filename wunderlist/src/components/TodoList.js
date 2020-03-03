@@ -132,7 +132,8 @@ const TodoList = props => {
 // export default TodoList;
 const mapStateToProps = state => {
   return {
-    tasks: state
+    tasks: state.todos,
+    isLoading: state.isLoading
   };
 };
 function mapDispatchToProps(dispatch) {
