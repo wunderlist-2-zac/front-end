@@ -18,9 +18,8 @@ import { connect } from "react-redux";
 import * as Index from "../actions/index";
 
 const TodoList = props => {
-  const [query, setQuery] = useState("");
-  const { register, handleSubmit, errors } = useForm();
-
+  const { register, handleSubmit } = useForm();
+  const [filterToDos, setFilterToDos] = useState([]);
   useEffect(() => {
     props.actions.getTasksData();
   }, []);
@@ -70,31 +69,47 @@ const TodoList = props => {
       return props.actions.deleteTask(task);
     });
   };
-  var filteredTasks = props.tasks.filter(task => {
-    return task.title.toLowerCase().includes(query.toLowerCase());
-  });
 
   const searching = event => {
-    setQuery(event.target.value);
+    setFilterToDos(
+      props.tasks.filter(task => {
+        return task.title
+          .toLowerCase()
+          .includes(event.target.value.toLowerCase());
+      })
+    );
   };
 
   const completed = () => {
-    filteredTasks = props.tasks.filter(task => {
-      return task.completed === true;
-    });
+    setFilterToDos(
+      props.tasks.filter(task => {
+        return task.completed;
+      })
+    );
   };
   const notCompleted = () => {
-    filteredTasks = props.tasks.filter(task => {
-      return task.completed === false;
-    });
+    setFilterToDos(
+      props.tasks.filter(task => {
+        return task.completed === false;
+      })
+    );
   };
   const all = () => {
-    filteredTasks = props.tasks;
+    setFilterToDos(props.tasks);
+  };
+  const logout = () => {
+    localStorage.clear();
+    window.location.reload(false);
   };
   return (
     <div className="wholetodo">
       <h1>Welcome to Wunderlist!</h1>
-      <p>making all your tasks easily accessible</p>
+      <div className="topFormatting">
+        <p>making all your tasks easily accessible</p>
+        <button onClick={logout} className="signOut">
+          Sign out
+        </button>
+      </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="formatForm">
@@ -124,8 +139,8 @@ const TodoList = props => {
         </button>
       </form>
 
-      {filteredTasks &&
-        filteredTasks.map(task => {
+      {filterToDos &&
+        filterToDos.map(task => {
           return <Todo task={task} key={task.id} />;
         })}
 
@@ -149,9 +164,15 @@ const TodoList = props => {
           <button onClick={}>not completed</button> */}
       </form>
       <div className="buttonFlexing">
-        <button onClick={completed}>Completed</button>
-        <button onClick={notCompleted}>Not Completed</button>
-        <button onClick={all}>All</button>
+        <button className="topButton" onClick={completed}>
+          Completed
+        </button>
+        <button className="topButton" onClick={notCompleted}>
+          Not Completed
+        </button>
+        <button className="topButton" onClick={all}>
+          All
+        </button>
       </div>
     </div>
   );

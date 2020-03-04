@@ -54,7 +54,7 @@ export default function Login(props) {
             ref={register}
           />
 
-          <input type="submit" text="Submit" />
+          <input className="submitButton" type="submit" text="Submit" />
           <h3>Don't Have An Account Yet?</h3>
           <MyLink to="/SignUp">
             <button>Create Account</button>
@@ -71,14 +71,18 @@ const MyLink = styled(Link)`
 
 const LoginContainer = styled.div`
   height: 60vh;
-  width: 100%;
   padding: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   h2 {
     font-size: 4rem;
+    display: flex;
+    justify-content: center;
     width: 100%;
-    color: #52de97;
-    font-family: "Raleway", sans-serif;
+    color:#52DE97;
+    font-family: 'Raleway', sans-serif;
     padding-bottom: 2%;
   }
 
@@ -91,14 +95,9 @@ const LoginContainer = styled.div`
     padding-top: 1%;
     padding-bottom: 1%;
   }
-  p {
-    color: red;
-    font-size: 1.5rem;
-  }
 
   form {
     display: flex;
-
     flex-direction: column;
     justify-content: flex-start;
     margin: 0 auto;
@@ -122,19 +121,43 @@ const LoginContainer = styled.div`
       border: 1px solid #c0ffb3;
       border-radius: 4px;
       box-shadow: none;
+      
+    }
+
+    .submitButton {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      background: white;
+      border-radius: 4px;
+      border: #197dac solid 1px;
+      padding: 1%;
+      font-family: "Raleway", sans-serif;
+      font-size: 20px;
+      margin-top: 2%;
+      margin-left: 1%;
+    }
+    .submitButton:hover {
+      background: #2c7873;
+      color: #ffba5a;
+      cursor: pointer;
     }
   }
 
   button {
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
     background: white;
     border-radius: 4px;
-    border: #197dac solid 1px;
+    border:  #197dac solid 1px;
     padding: 1%;
-    font-family: "Raleway", sans-serif;
-    margin-bottom: 2%;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    margin-bottom:
+    margin-left:1%;
 
     &:hover {
       background: #2c7873;

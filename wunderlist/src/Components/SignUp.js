@@ -4,14 +4,9 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-let renderCount = 0;
-
 export default function SignUp(props) {
   const { register, handleSubmit } = useForm();
-  renderCount++;
   const onSubmit = data => {
-    console.log("testing", data.password);
-    console.log("testing", data);
     axios({
       method: "POST",
       url: "https://wunderlistclone.herokuapp.com/api/auth/register",
@@ -63,9 +58,8 @@ export default function SignUp(props) {
               name="password"
               ref={register({ required: true, minLength: 8 })}
             />
-            <input type="submit" text="Submit" />
+            <input className="submitButton" type="submit" text="Submit" />
 
-            <p>render counter: {renderCount}</p>
             <h3>Already Have An Account?</h3>
             <MyLink to="/">
               <button className="log">Log In</button>
@@ -81,12 +75,16 @@ const MyLink = styled(Link)`
   text-decoration: none;
 `;
 const SignUpContainer = styled.div`
+  display: flex;
   height: 60vh;
-  width: 100%;
   padding: 5%;
+  align-items: center;
+  justify-content: center;
 
   h2 {
     font-size: 4rem;
+    display: flex;
+    justify-content: center;
     width: 100%;
     color: #52de97;
     font-family: "Raleway", sans-serif;
@@ -130,16 +128,40 @@ const SignUpContainer = styled.div`
     }
   }
 
+    .submitButton {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      background: white;
+      border-radius: 4px;
+      border: #197dac solid 1px;
+      padding: 1%;
+      font-family: "Raleway", sans-serif;
+      font-size: 20px;
+      margin-top: 2%;
+      margin-left: 1%;
+    }
+    .submitButton:hover {
+      background: #2c7873;
+      color: #ffba5a;
+      cursor: pointer;
+    }
+  }
+
   button {
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
     background: white;
     border-radius: 4px;
     border: #197dac solid 1px;
     padding: 1%;
     font-family: "Raleway", sans-serif;
-    margin-bottom: 2%;
+    font-size: 20px;
+    margin-top: 2%;
+    margin-left: 1%;
 
     &:hover {
       background: #2c7873;
