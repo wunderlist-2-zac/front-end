@@ -1,26 +1,29 @@
-import React, {} from 'react';
-import './App.css';
-import {Route} from "react-router-dom";
-import {} from 'react-hook-form';
-
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
-
-
 import LandingPage from './Components/LandingPage';
+//questions for backend- It says get by month, will I be able to get by everything?
+//Will put requests work? for updating is Completed
+//Need a is Recurring, must figure out how to setup timer, will reset on recurring
 
-
+import React from "react";
+import "./App.css";
+import { createStore, applyMiddleware } from "redux";
+import { todoReducer as reducer } from "./reducers/todoReducer";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import TodoList from "./components/TodoList";
+const store = createStore(reducer, applyMiddleware(thunk));
 function App() {
 
   return (
-    <div>
-     
-      <Route path="/" exact component = {LandingPage} />
-      <Route path = "/Login" component = {Login} />
-      <Route path = "/SignUp" component = {SignUp} />
-        
-     
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <h1>WunderList</h1>
+        <TodoList />
+      </div>
+    </Provider>
+
   );
 }
 
