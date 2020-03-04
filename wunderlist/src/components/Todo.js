@@ -47,32 +47,20 @@ const TodoRow = props => {
   const markTaskComplete = () => {
     props.actions.completeTask(props.task);
   };
-  // const repeatWithRecurring = passIn => {
-  //   if (props.task.is_recurring === "h") {
-  //     passIn = 3600;
-  //   } else if (props.task.is_recurring === "d") {
-  //     passIn = 86400;
-  //   } else if (props.task.is_recurring === "w") {
-  //     passIn = 604800;
-  //   } else if (props.task.is_recurring === "m") {
-  //     passIn = 2630000;
-  //   } else {
-  //     passIn = 0;
-  //   }
-  //   return passIn;
-  // };
-  // var intervalNumber = 0;
-  // const createRecurringTask = () => {
-  //   const newObject = {
-  //     title: props.task.title,
-  //     start: props.task.start,
-  //     end: props.task.end,
-  //     is_recurring: props.task.is_recurring
-  //   };
-  //   props.actions.postNewTask(newObject);
-  // };
-
-  // setTimeout(createRecurringTask, timerMilliseconds);
+  const repeatWithRecurring = passIn => {
+    if (props.task.is_recurring === "h") {
+      passIn = 3600;
+    } else if (props.task.is_recurring === "d") {
+      passIn = 86400;
+    } else if (props.task.is_recurring === "w") {
+      passIn = 604800;
+    } else if (props.task.is_recurring === "m") {
+      passIn = 2630000;
+    } else {
+      passIn = 0;
+    }
+    return passIn;
+  };
 
   return (
     <div

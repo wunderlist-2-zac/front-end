@@ -126,3 +126,23 @@
 .signOut:hover {
   background-color: red;
 }
+@media screen and (max-width: 1440px) {
+  .singleTask {
+    width: 80%;
+  }
+  .topFormatting {
+    width: 30%;
+  }
+  .wholetodo form {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .singleTask {
+    width: 100%;
+  }
+  .wholetodo form {
+    width: 100%;
+  }
+}
