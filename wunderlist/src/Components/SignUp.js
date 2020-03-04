@@ -10,8 +10,8 @@ export default function SignUp(props) {
   const { register, handleSubmit } = useForm();
   renderCount++;
   const onSubmit = data => {
-    console.log(data.password);
-    console.log(data);
+    console.log("testing", data.password);
+    console.log("testing", data);
     axios({
       method: "POST",
       url: "https://wunderlistclone.herokuapp.com/api/auth/register",
@@ -63,10 +63,8 @@ export default function SignUp(props) {
               name="password"
               ref={register({ required: true, minLength: 8 })}
             />
+            <input type="submit" text="Submit" />
 
-            <button className="continue" onClick={onSubmit}>
-              Submit
-            </button>
             <p>render counter: {renderCount}</p>
             <h3>Already Have An Account?</h3>
             <MyLink to="/">

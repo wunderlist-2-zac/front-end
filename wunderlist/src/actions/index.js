@@ -52,7 +52,7 @@ export const getTasksData = () => dispatch => {
   axiosWithAuth()
     .get("/api/tasks")
     .then(res => {
-      console.log(res);
+      console.log("test", res);
       dispatch(getTasksDataSuccess(res.data));
     });
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -6,26 +6,30 @@ import styled from "styled-components";
 
 export default function Login(props) {
   const { register, handleSubmit, errors } = useForm();
+
+  // axios({
+  //   method: "POST",
+  //   url: "https://wunderlistclone.herokuapp.com/api/auth/login",
+  //   header: { "Content-Type": "application/json" },
+  //   data: {
+  //     username: data.username,
+  //     password: data.password
+  //   }
+  // })
+
   const onSubmit = data => {
-    console.log(data.password);
-    console.log(data);
-    axios({
-      method: "POST",
-      url: "https://wunderlistclone.herokuapp.com/api/auth/login",
-      header: { "Content-Type": "application/json" },
-      data: {
-        username: data.username,
-        password: data.password
-      }
-    })
-      .then(res => {
-        console.log(res);
-        localStorage.setItem("token", res.data.token);
-        props.history.push("/todoapp");
-      })
-      .catch(errors => {
-        console.error("Server Error", errors);
-      });
+    if (data !== undefined) {
+      axios
+        .post("https://wunderlistclone.herokuapp.com/api/auth/login", data)
+        .then(res => {
+          console.log(res);
+          localStorage.setItem("token", res.data.token);
+          props.history.push("/todoapp");
+        })
+        .catch(errors => {
+          console.error("Server Error", errors);
+        });
+    }
   };
 
   return (
@@ -50,7 +54,7 @@ export default function Login(props) {
             ref={register}
           />
 
-          <button onClick={onSubmit}>Submit</button>
+          <input type="submit" text="Submit" />
           <h3>Don't Have An Account Yet?</h3>
           <MyLink to="/SignUp">
             <button>Create Account</button>
