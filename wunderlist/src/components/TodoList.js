@@ -77,6 +77,20 @@ const TodoList = props => {
   const searching = event => {
     setQuery(event.target.value);
   };
+
+  const completed = () => {
+    filteredTasks = props.tasks.filter(task => {
+      return task.completed === true;
+    });
+  };
+  const notCompleted = () => {
+    filteredTasks = props.tasks.filter(task => {
+      return task.completed === false;
+    });
+  };
+  const all = () => {
+    filteredTasks = props.tasks;
+  };
   return (
     <div className="wholetodo">
       <h1>Welcome to Wunderlist!</h1>
@@ -134,6 +148,11 @@ const TodoList = props => {
         {/* <button onClick={}>completed</button>
           <button onClick={}>not completed</button> */}
       </form>
+      <div className="buttonFlexing">
+        <button onClick={completed}>Completed</button>
+        <button onClick={notCompleted}>Not Completed</button>
+        <button onClick={all}>All</button>
+      </div>
     </div>
   );
 };
