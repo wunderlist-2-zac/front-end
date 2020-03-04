@@ -1,5 +1,4 @@
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-import { bindActionCreators } from "redux";
 
 //Create a task
 export const ADD_TASK = "ADD_TODO";

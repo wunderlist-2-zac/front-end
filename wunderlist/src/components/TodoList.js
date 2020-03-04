@@ -18,6 +18,7 @@ import { connect } from "react-redux";
 import * as Index from "../actions/index";
 
 const TodoList = props => {
+  const [query, setQuery] = useState("");
   const { register, handleSubmit, errors } = useForm();
 
   useEffect(() => {
@@ -69,16 +70,27 @@ const TodoList = props => {
       return props.actions.deleteTask(task);
     });
   };
+  var filteredTasks = props.tasks.filter(task => {
+    return task.title.toLowerCase().includes(query.toLowerCase());
+  });
+
+  const searching = event => {
+    setQuery(event.target.value);
+  };
   return (
     <div className="wholetodo">
-      <header className="header">
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <h1>Welcome to Wunderlist!</h1>
+      <p>making all your tasks easily accessible</p>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="formatForm">
           <input
             type="text"
             placeholder="Title"
             name="title"
             ref={register({ min: 1, maxLength: 20 })}
           />
+
           <input
             type="datetime-local"
             placeholder="end date"
@@ -92,31 +104,36 @@ const TodoList = props => {
             <option value="m"> Monthly</option>
             <option value="y"> Yearly</option>
           </select>
-
-          <input type="submit" />
-        </form>
-      </header>
-      <section className="main">
-        {props.tasks &&
-          props.tasks.map(task => {
-            return <Todo task={task} key={task.id} />;
-          })}
-      </section>
-      <footer className="footer">
-        <p className="todo-count">
-          <strong>{counter}</strong> {counter === 1 ? "item" : "items"} left
-        </p>
-        <br></br>
-        <button onClick={deleteTasks} className="clear-completed">
-          Clear completed
+        </div>
+        <button type="submit" className="topButton">
+          Submit
         </button>
-        <form>
-          <input type="text" placeholder="Search through todos" name="search" />
-          <br></br>
-          {/* <button onClick={}>completed</button>
+      </form>
+
+      {filteredTasks &&
+        filteredTasks.map(task => {
+          return <Todo task={task} key={task.id} />;
+        })}
+
+      <p className="todo-count">
+        <strong>{counter}</strong> {counter === 1 ? "item" : "items"} left
+      </p>
+      <br></br>
+      <button onClick={deleteTasks} className="bottomButton">
+        Clear completed
+      </button>
+      <form>
+        <input
+          type="text"
+          className="bottomInput"
+          placeholder="Search through todos"
+          name="search"
+          onChange={searching}
+        />
+        <br></br>
+        {/* <button onClick={}>completed</button>
           <button onClick={}>not completed</button> */}
-        </form>
-      </footer>
+      </form>
     </div>
   );
 };
