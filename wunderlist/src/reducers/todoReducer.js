@@ -10,7 +10,9 @@ import {
   DELETE_TASK_FAILURE,
   COMPLETE_TASK,
   COMPLETE_TASK_SUCCESS,
-  SORT_TASKS
+  SORT_TASKS,
+  SHOW_COMPLETED,
+  SHOW_NOT_COMPLETED
 } from "../actions";
 
 var initialState = {
@@ -54,11 +56,28 @@ export const todoReducer = (state = initialState, action) => {
       };
     }
     case SORT_TASKS: {
+      const newTodos = state.todos.slice().sort(function(a, b) {
+        return a.id - b.id;
+      });
       return {
-        ...state
+        todos: newTodos,
+        isLoading: false
       };
     }
-
+    case SHOW_COMPLETED: {
+      const newTodos = state.todos.filter(t => t.completed);
+      return {
+        todos: newTodos,
+        isLoading: false
+      };
+    }
+    case SHOW_NOT_COMPLETED: {
+      const newTodos = state.todos.filter(t => !t.completed);
+      return {
+        todos: newTodos,
+        isLoading: false
+      };
+    }
     default:
       return state;
   }

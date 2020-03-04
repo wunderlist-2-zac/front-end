@@ -18,6 +18,7 @@
   margin-bottom: 1%;
   border-radius: 15px;
   background-color: #c0ffb3;
+  cursor: pointer;
 }
 .singleTaskCompleted {
   display: flex;
@@ -28,6 +29,7 @@
   border-radius: 15px;
   background-color: #dcdcdc;
   text-decoration: line-through;
+  cursor: pointer;
 }
 
 .spacing {

@@ -3,6 +3,7 @@ import { TransitionMotion, spring, presets } from "react-motion";
 import { useForm } from "react-hook-form";
 import { bindActionCreators } from "redux";
 import Todo from "./Todo";
+
 // import {
 //   postNewTask,
 //   postNewTaskSuccess,
@@ -53,34 +54,21 @@ const TodoList = props => {
     props.actions.postNewTask(addATask);
   };
 
-  //Do we use actions? guess so cause state
-  var itemsNotFinished;
+  var counter = 0;
+  props.tasks.map(task => {
+    if (!task.completed) {
+      return (counter += 1);
+    } else {
+      return counter;
+    }
+  });
 
-  // handleChange = ({ target: { value } }) => {};
-  // console.log("the date", Date.now());
-  // // //Adds new item
-  // handleSubmit = e => {
-  //   e.preventDefault();
-  //   const newTask = {
-  //     title: "",
-  //     start: ""
-  //   };
-  //   console.log("test");
-  //   // props.task.postNewTask(newTask);
-  //   // add to top of the list
-  // };
-
-  // //onClick to mark as complete
-  // handleComplete = doneID => {};
-
-  // //marks all as complete
-  // handleToggleAll = () => {
-  //   // const allNotDone = props.markAllDone();
-  // };
-
-  // //Deletes all completed items
-  // handleClearCompleted = () => {};
-
+  const deleteTasks = () => {
+    const arrayOfCompleted = props.tasks.filter(task => task.completed);
+    arrayOfCompleted.map(task => {
+      return props.actions.deleteTask(task);
+    });
+  };
   return (
     <div className="wholetodo">
       <header className="header">
@@ -115,14 +103,18 @@ const TodoList = props => {
           })}
       </section>
       <footer className="footer">
-        <span className="todo-count">
-          <strong>{itemsNotFinished}</strong>{" "}
-          {itemsNotFinished === 1 ? "item" : "items"} left
-        </span>
+        <p className="todo-count">
+          <strong>{counter}</strong> {counter === 1 ? "item" : "items"} left
+        </p>
         <br></br>
-        <button className="clear-completed">Clear completed</button>
+        <button onClick={deleteTasks} className="clear-completed">
+          Clear completed
+        </button>
         <form>
           <input type="text" placeholder="Search through todos" name="search" />
+          <br></br>
+          {/* <button onClick={}>completed</button>
+          <button onClick={}>not completed</button> */}
         </form>
       </footer>
     </div>

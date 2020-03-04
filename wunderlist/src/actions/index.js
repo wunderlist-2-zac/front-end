@@ -24,6 +24,11 @@ export const COMPLETE_TASK_FAILURE = "COMPLETE_TASK_FAILURE";
 //Sorting the tasks
 export const SORT_TASKS = "SORT_TASKS";
 
+//Displaying the tasks
+export const SHOW_COMPLETED = "SHOW_COMPLETED";
+export const SHOW_NOT_COMPLETED = "SHOW_NOT_COMPLETED";
+export const SHOW_ALL = "SHOW_ALL";
+
 // New Task
 export const postNewTask = todo => dispatch => {
   dispatch({ type: ADD_TASK });
