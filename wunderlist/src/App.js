@@ -1,3 +1,6 @@
+import Login from './Components/Login';
+import SignUp from './Components/SignUp';
+import LandingPage from './Components/LandingPage';
 //questions for backend- It says get by month, will I be able to get by everything?
 //Will put requests work? for updating is Completed
 //Need a is Recurring, must figure out how to setup timer, will reset on recurring
@@ -10,9 +13,9 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import TodoList from "./components/TodoList";
-
 const store = createStore(reducer, applyMiddleware(thunk));
 function App() {
+
   return (
     <Provider store={store}>
       <div className="App">
@@ -20,6 +23,7 @@ function App() {
         <TodoList />
       </div>
     </Provider>
+
   );
 }
 
