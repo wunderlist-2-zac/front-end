@@ -64,8 +64,7 @@ export default function SignUp(props) {
               placeholder="Password"
               name="password"
               ref={register({
-                required: "Required",
-                min: 6
+                required: "Required"
               })}
             />
             {errors.password && errors.password.message}
