@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export default function SignUp(props) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const onSubmit = data => {
     axios({
       method: "POST",
@@ -48,16 +48,27 @@ export default function SignUp(props) {
               type="text"
               placeholder="Username"
               name="username"
-              ref={register({ required: true, pattern: /^\S+@\S+$/i })}
+              ref={register({
+                required: "Required",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: "invalid email address"
+                }
+              })}
             />
+            {errors.username && errors.username.message}
 
             <h3>Password:</h3>
             <input
-              type="text"
+              type="password"
               placeholder="Password"
               name="password"
-              ref={register({ required: true, minLength: 8 })}
+              ref={register({
+                required: "Required",
+                min: 6
+              })}
             />
+            {errors.password && errors.password.message}
             <input className="submitButton" type="submit" text="Submit" />
 
             <h3>Already Have An Account?</h3>

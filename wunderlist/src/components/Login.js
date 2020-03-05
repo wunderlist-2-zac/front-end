@@ -43,17 +43,25 @@ export default function Login(props) {
             type="text"
             placeholder="Email"
             name="username"
-            ref={register({ required: true, pattern: /^\S+@\S+$/i })}
+            ref={register({
+              required: "Required",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: "invalid email address"
+              }
+            })}
           />
-
+          {errors.username && errors.username.message}
           <h3>Password</h3>
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             name="password"
-            ref={register}
+            ref={register({
+              required: "Required"
+            })}
           />
-
+          {errors.password && errors.password.message}
           <input className="submitButton" type="submit" text="Submit" />
           <h3>Don't Have An Account Yet?</h3>
           <MyLink to="/SignUp">
