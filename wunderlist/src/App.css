@@ -93,6 +93,20 @@
   margin-bottom: 1%;
   cursor: pointer;
 }
+.topButtonComplete {
+  background-color: #2c7873;
+  color: white;
+  padding: 2% 4%;
+  margin-top: 1%;
+  border: 2px solid #c0ffb3;
+  border-radius: 15px;
+  margin-bottom: 1%;
+  cursor: pointer;
+}
+.topButtonComplete:hover {
+  background-color: lightcoral;
+  color: black;
+}
 .topButton:hover {
   background-color: #c0ffb3;
   color: #333;

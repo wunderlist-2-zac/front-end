@@ -24,6 +24,7 @@ export default function SignUp(props) {
         console.error("Server Error", errors);
       });
   };
+  console.log(register);
 
   return (
     <>
@@ -68,7 +69,12 @@ export default function SignUp(props) {
               })}
             />
             {errors.password && errors.password.message}
-            <input className="submitButton" type="submit" text="Submit" />
+            <input
+              className="submitButton"
+              type="submit"
+              text="Submit"
+              value="Submit"
+            />
 
             <h3>Already Have An Account?</h3>
             <MyLink to="/">

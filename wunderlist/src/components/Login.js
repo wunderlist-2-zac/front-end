@@ -23,7 +23,7 @@ export default function Login(props) {
         .post("https://wunderlistclone.herokuapp.com/api/auth/login", data)
         .then(res => {
           console.log(res);
-          localStorage.setItem("token", res.data.token);
+          window.localStorage.setItem("token", res.data.token);
           props.history.push("/todoapp");
         })
         .catch(errors => {
@@ -62,7 +62,12 @@ export default function Login(props) {
             })}
           />
           {errors.password && errors.password.message}
-          <input className="submitButton" type="submit" text="Submit" />
+          <input
+            className="submitButton"
+            type="submit"
+            text="Submit"
+            value="Submit"
+          />
           <h3>Don't Have An Account Yet?</h3>
           <MyLink to="/SignUp">
             <button>Create Account</button>
