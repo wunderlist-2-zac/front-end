@@ -44,10 +44,10 @@ export default function SignUp(props) {
         <h3>Last Name:</h3>
         <input type="text" placeholder="Last name" name="last name" ref={register({required: true, maxLength: 10})} /> */}
 
-            <h3>Email:</h3>
+            <h3>Email</h3>
             <input
               type="text"
-              placeholder="Username"
+              placeholder="Email"
               name="username"
               ref={register({
                 required: "Required",
@@ -59,7 +59,7 @@ export default function SignUp(props) {
             />
             {errors.username && errors.username.message}
 
-            <h3>Password:</h3>
+            <h3>Password</h3>
             <input
               type="password"
               placeholder="Password"
