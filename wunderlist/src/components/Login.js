@@ -17,16 +17,16 @@ export default function Login(props) {
   //   }
   // })
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     if (data !== undefined) {
       axios
         .post("https://wunderlistclone.herokuapp.com/api/auth/login", data)
-        .then(res => {
+        .then((res) => {
           console.log(res);
           window.localStorage.setItem("token", res.data.token);
           props.history.push("/todoapp");
         })
-        .catch(errors => {
+        .catch((errors) => {
           console.error("Server Error", errors);
         });
     }
@@ -36,7 +36,7 @@ export default function Login(props) {
     <>
       <LoginContainer>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h2>Login</h2>
+          <h2>Login To WunderList</h2>
 
           <h3>Email</h3>
           <input
@@ -47,8 +47,8 @@ export default function Login(props) {
               required: "Required",
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                message: "invalid email address"
-              }
+                message: "invalid email address",
+              },
             })}
           />
           {errors.username && errors.username.message}
@@ -58,7 +58,7 @@ export default function Login(props) {
             placeholder="Password"
             name="password"
             ref={register({
-              required: "Required"
+              required: "Required",
             })}
           />
           {errors.password && errors.password.message}
@@ -90,7 +90,7 @@ const LoginContainer = styled.div`
   justify-content: center;
 
   h2 {
-    font-size: 4rem;
+    font-size: 2.5rem;
     display: flex;
     justify-content: center;
     width: 100%;
